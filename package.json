@@ -1,0 +1,31 @@
+{
+  "name": "bookstore-manager-sctec",
+  "version": "1.0.0",
+  "description": "Sistema de gerenciamento de livraria via terminal utilizando Node.js, TypeScript e PostgreSQL.",
+  "main": "dist/main.js",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "start": "tsx src/main.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "typescript",
+    "node",
+    "postgresql",
+    "cli",
+    "bookstore"
+  ],
+  "author": "Mauricio Petri Junior",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "pg": "^8.22.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.1.1",
+    "@types/pg": "^8.20.0",
+    "tsx": "^4.23.0",
+    "typescript": "^7.0.2"
+  }
+}
