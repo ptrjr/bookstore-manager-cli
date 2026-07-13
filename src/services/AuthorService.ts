@@ -23,12 +23,27 @@ export class AuthorService {
 
   async create(input: CreateAuthorInput): Promise<Author> {
     const name = this.validateName(input.name);
-    const nationality = this.normalizeNationality(input.nationality);
+    const nationality = this.normalizeNationality(
+      input.nationality,
+    );
 
-    return this.authorRepository.create({
-      name,
-      nationality,
-    });
+    try {
+      return await this.authorRepository.create({
+        name,
+        nationality,
+      });
+    } catch (error) {
+      if (
+        error instanceof DatabaseError &&
+        error.code === "23505"
+      ) {
+        throw new Error(
+          "An author with this name is already registered.",
+        );
+      }
+
+      throw error;
+    }
   }
 
   async findAll(): Promise<Author[]> {
@@ -54,18 +69,34 @@ export class AuthorService {
     this.validateId(id);
 
     const name = this.validateName(input.name);
-    const nationality = this.normalizeNationality(input.nationality);
+    const nationality = this.normalizeNationality(
+      input.nationality,
+    );
 
-    const updatedAuthor = await this.authorRepository.update(id, {
-      name,
-      nationality,
-    });
+    try {
+      const updatedAuthor =
+        await this.authorRepository.update(id, {
+          name,
+          nationality,
+        });
 
-    if (!updatedAuthor) {
-      throw new Error("Author not found.");
+      if (!updatedAuthor) {
+        throw new Error("Author not found.");
+      }
+
+      return updatedAuthor;
+    } catch (error) {
+      if (
+        error instanceof DatabaseError &&
+        error.code === "23505"
+      ) {
+        throw new Error(
+          "An author with this name is already registered.",
+        );
+      }
+
+      throw error;
     }
-
-    return updatedAuthor;
   }
 
   async delete(id: number): Promise<void> {
@@ -94,7 +125,9 @@ export class AuthorService {
 
   private validateId(id: number): void {
     if (!Number.isInteger(id) || id <= 0) {
-      throw new Error("Author ID must be a positive integer.");
+      throw new Error(
+        "Author ID must be a positive integer.",
+      );
     }
   }
 
@@ -117,7 +150,10 @@ export class AuthorService {
   private normalizeNationality(
     nationality?: string | null,
   ): string | null {
-    if (nationality === undefined || nationality === null) {
+    if (
+      nationality === undefined ||
+      nationality === null
+    ) {
       return null;
     }
 

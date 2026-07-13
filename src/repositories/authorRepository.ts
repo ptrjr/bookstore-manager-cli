@@ -11,7 +11,7 @@ import {
   Author,
   CreateAuthorInput,
   UpdateAuthorInput,
-} from "../models/authors";
+} from "../models/Author";
 
 export class AuthorRepository {
   async create(input: CreateAuthorInput): Promise<Author> {

@@ -5,26 +5,25 @@
  * ---------------------------------------------------------
  */
 
-import databasePool from "./database/connection";
+import { MainMenu } from "./menus/MainMenu";
+import { closeTerminal } from "./utils/input";
 
 async function startApplication(): Promise<void> {
   try {
-    const result = await databasePool.query(
-      "SELECT NOW() AS current_time"
-    );
+    const menu = new MainMenu();
 
-    console.log("BookStore Manager CLI started successfully!");
-    console.log("Database connected successfully.");
-    console.log("Database time:", result.rows[0].current_time);
+    await menu.start();
   } catch (error) {
-    console.error("Failed to connect to the database.");
+    const message =
+      error instanceof Error
+        ? error.message
+        : "An unexpected error occurred.";
 
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
-  } finally {
-    await databasePool.end();
+    console.error(`\nApplication error: ${message}`);
+
+    closeTerminal();
+    process.exitCode = 1;
   }
 }
 
-startApplication();
+void startApplication();
