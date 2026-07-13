@@ -1,3 +1,11 @@
+-- This script creates the database structure for the
+-- BookStore Manager CLI application.
+--
+-- Existing tables are dropped to simplify development
+-- and testing.
+--
+-- =========================================================
+
 DROP TABLE IF EXISTS loans;
 DROP TABLE IF EXISTS books;
 DROP TABLE IF EXISTS customers;
