@@ -12,17 +12,21 @@ import {
 } from "../utils/input";
 import { AuthorMenu } from "./AuthorMenu";
 import { BookMenu } from "./BookMenu";
+import { CustomerMenu } from "./CustomerMenu";
 
 export class MainMenu {
   private readonly authorMenu: AuthorMenu;
   private readonly bookMenu: BookMenu;
+  private readonly customerMenu: CustomerMenu;
 
   constructor(
     authorMenu = new AuthorMenu(),
     bookMenu = new BookMenu(),
+    customerMenu = new CustomerMenu(),
   ) {
     this.authorMenu = authorMenu;
     this.bookMenu = bookMenu;
+    this.customerMenu = customerMenu;
   }
 
   public async start(): Promise<void> {
@@ -47,8 +51,7 @@ export class MainMenu {
           break;
 
         case "3":
-          console.log("Customers menu coming soon...");
-          await pause();
+          await this.customerMenu.start();
           break;
 
         case "4":
