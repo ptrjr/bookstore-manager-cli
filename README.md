@@ -98,15 +98,15 @@ O projeto aplica conceitos de:
 
 ```
 src
-│
-├── controllers
-├── database
-├── menus
-├── models
-├── repositories
-├── services
-├── utils
-└── main.ts
+|
+|-controllers
+|- database
+|-menus
+|-models
+|-repositories
+|-services
+|-utils
+|- main.ts
 ```
 
 ### Responsabilidade das camadas
