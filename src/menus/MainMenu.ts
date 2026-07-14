@@ -13,20 +13,24 @@ import {
 import { AuthorMenu } from "./AuthorMenu";
 import { BookMenu } from "./BookMenu";
 import { CustomerMenu } from "./CustomerMenu";
+import { LoanMenu } from "./LoanMenu";
 
 export class MainMenu {
   private readonly authorMenu: AuthorMenu;
   private readonly bookMenu: BookMenu;
   private readonly customerMenu: CustomerMenu;
+  private readonly loanMenu: LoanMenu;
 
   constructor(
     authorMenu = new AuthorMenu(),
     bookMenu = new BookMenu(),
     customerMenu = new CustomerMenu(),
+    loanMenu = new LoanMenu(),
   ) {
     this.authorMenu = authorMenu;
     this.bookMenu = bookMenu;
     this.customerMenu = customerMenu;
+    this.loanMenu = loanMenu;
   }
 
   public async start(): Promise<void> {
@@ -55,8 +59,7 @@ export class MainMenu {
           break;
 
         case "4":
-          console.log("Loans menu coming soon...");
-          await pause();
+          await this.loanMenu.start();
           break;
 
         case "5":
