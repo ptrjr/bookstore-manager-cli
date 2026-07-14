@@ -1,9 +1,13 @@
--- This script creates the database structure for the
--- BookStore Manager CLI application.
+-- =========================================================
+-- BookStore Manager CLI
+-- Database Schema
+-- =========================================================
+--
+-- This script creates the complete database structure
+-- required by the application.
 --
 -- Existing tables are dropped to simplify development
 -- and testing.
---
 -- =========================================================
 
 DROP TABLE IF EXISTS loans;
@@ -17,7 +21,7 @@ DROP TABLE IF EXISTS authors;
 
 CREATE TABLE authors (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL UNIQUE,
     nationality VARCHAR(50)
 );
 
@@ -38,11 +42,17 @@ CREATE TABLE customers (
 
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
+    title VARCHAR(150) NOT NULL,
     isbn VARCHAR(20) NOT NULL UNIQUE,
     publication_year INTEGER NOT NULL,
     stock_quantity INTEGER NOT NULL DEFAULT 0,
     author_id INTEGER NOT NULL,
+
+    CONSTRAINT check_book_publication_year
+        CHECK (
+            publication_year >= 1000
+            AND publication_year <= EXTRACT(YEAR FROM CURRENT_DATE)
+        ),
 
     CONSTRAINT check_book_stock_quantity
         CHECK (stock_quantity >= 0),
@@ -81,9 +91,15 @@ CREATE TABLE loans (
 
     CONSTRAINT check_returned_loan
         CHECK (
-            (status = 'ACTIVE' AND return_date IS NULL)
+            (
+                status = 'ACTIVE'
+                AND return_date IS NULL
+            )
             OR
-            (status = 'RETURNED' AND return_date IS NOT NULL)
+            (
+                status = 'RETURNED'
+                AND return_date IS NOT NULL
+            )
         ),
 
     CONSTRAINT fk_loans_customer
