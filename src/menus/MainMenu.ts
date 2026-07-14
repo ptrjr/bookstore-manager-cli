@@ -7,30 +7,33 @@
 
 import {
   closeTerminal,
-  pause,
   terminal,
 } from "../utils/input";
 import { AuthorMenu } from "./AuthorMenu";
 import { BookMenu } from "./BookMenu";
 import { CustomerMenu } from "./CustomerMenu";
 import { LoanMenu } from "./LoanMenu";
+import { ReportMenu } from "./ReportMenu";
 
 export class MainMenu {
   private readonly authorMenu: AuthorMenu;
   private readonly bookMenu: BookMenu;
   private readonly customerMenu: CustomerMenu;
   private readonly loanMenu: LoanMenu;
+  private readonly reportMenu: ReportMenu;
 
   constructor(
     authorMenu = new AuthorMenu(),
     bookMenu = new BookMenu(),
     customerMenu = new CustomerMenu(),
     loanMenu = new LoanMenu(),
+    reportMenu = new ReportMenu(),
   ) {
     this.authorMenu = authorMenu;
     this.bookMenu = bookMenu;
     this.customerMenu = customerMenu;
     this.loanMenu = loanMenu;
+    this.reportMenu = reportMenu;
   }
 
   public async start(): Promise<void> {
@@ -63,8 +66,7 @@ export class MainMenu {
           break;
 
         case "5":
-          console.log("Reports menu coming soon...");
-          await pause();
+          await this.reportMenu.start();
           break;
 
         case "0":
@@ -73,7 +75,9 @@ export class MainMenu {
 
         default:
           console.log("Invalid option.");
-          await pause();
+          await terminal.question(
+            "\nPress ENTER to continue...",
+          );
       }
     }
 
