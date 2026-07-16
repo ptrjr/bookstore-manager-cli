@@ -161,14 +161,10 @@ Relacionamentos:
 
 # Estrutura do Banco
 
-```
-Authors
-  │
-Books
-  │
-Loans
-  │
-Customers
+```text
+Authors (1) ──────── (N) Books
+Customers (1) ────── (N) Loans
+Books (1) ────────── (N) Loans
 ```
 
 ---
@@ -224,7 +220,6 @@ O script cria automaticamente:
 - tabelas
 - chaves primárias
 - chaves estrangeiras
-- índices
 - restrições
 
 ---
@@ -268,7 +263,6 @@ O projeto utiliza:
 - Constraints
 - Foreign Keys
 - Índices
-- Transações (BEGIN, COMMIT e ROLLBACK)
 
 ---
 
@@ -278,7 +272,6 @@ O projeto utiliza:
 - Interfaces
 - Classes
 - Encapsulamento
-- Dependency Injection
 - Repository Pattern
 - Service Layer
 - Arquitetura em Camadas
@@ -292,7 +285,7 @@ O projeto utiliza:
 
 Link do quadro de desenvolvimento:
 
-**Adicionar o link do GitHub Projects ou Trello aqui.**
+[Visualizar o quadro](https://trello.com/invite/b/6a5806ff07c7f1073d2c8426/ATTI56550eafd7df578be5a5441a2b582c6e897F0E15/bookstore-manager-cli)
 
 ---
 
@@ -300,7 +293,7 @@ Link do quadro de desenvolvimento:
 
 Link do vídeo:
 
-**Adicionar o link do vídeo aqui.**
+[Assistir à apresentação do projeto](https://drive.google.com/file/d/1d9xgCnMil0N980AmLAYHqwkgb-z0Zr8d/view?usp=sharing)
 
 ---
 
@@ -322,12 +315,10 @@ Link do vídeo:
 
 **Mauricio Petri Junior**
 
-GitHub
-
+GitHub:
 https://github.com/ptrjr
 
-LinkedIn
-
+LinkedIn:
 https://www.linkedin.com/in/mauricio-petri-junior-a1333a249
 
 ---
